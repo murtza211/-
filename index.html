@@ -3,308 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة أبواب التعليمية - نظام تعليمي متطور</title>
+    <title>منصة أور التعليمية - المطور مرتضى أيمن</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="light-mode">
-    <!-- شاشة التقديم الأولية (Intro Screen) -->
     <div id="introScreen" class="intro-screen active">
         <div class="intro-container">
-            <h1 class="logo-intro">🎓 أبواب</h1>
+            <h1 class="logo-intro">🏛️ منصة أور</h1>
             <div class="typewriter-container">
                 <p id="typewriter" class="typewriter"></p>
                 <span class="cursor">|</span>
             </div>
             
             <div id="nameInputSection" class="name-input-section hidden">
-                <input 
-                    type="text" 
-                    id="studentName" 
-                    placeholder="أدخل اسمك..." 
-                    class="name-input"
-                    autocomplete="off"
-                >
-                <button onclick="saveName()" class="submit-name-btn">ابدأ الآن ➜</button>
+                <input type="text" id="studentName" placeholder="أدخل اسمك..." class="name-input" autocomplete="off">
+                <button onclick="saveName()" class="submit-name-btn">دخول للمنصة ➜</button>
             </div>
 
-            <!-- مرحلة / صف تُطلب بعد إدخال الاسم -->
             <div id="stageSection" class="stage-section hidden">
-                <p class="stage-label">اختر مرحلتك الدراسية:</p>
-                <select id="stageSelect" class="selector-input" onchange="updateClassOptions()">
-                    <option value="">-- اختر المرحلة --</option>
-                    <option value="elementary">ابتدائية</option>
-                    <option value="middle">متوسطة</option>
-                    <option value="high">اعدادية</option>
-                </select>
-                <select id="classSelect" class="selector-input hidden">
-                    <option value="">-- اختر الصف --</option>
-                </select>
-                <button onclick="saveStage()" class="submit-name-btn">حسناً</button>
-            </div>
-
-            <div id="modeToggleSection" class="mode-toggle-section hidden">
-                <p class="mode-label">اختر الوضع المفضل:</p>
-                <div class="mode-buttons">
-                    <button id="lightModeBtn" class="mode-btn light-btn" onclick="setMode('light')">
-                        <span class="mode-icon">☀️</span>
-                        <span>الوضع الفاتح</span>
-                    </button>
-                    <button id="darkModeBtn" class="mode-btn dark-btn" onclick="setMode('dark')">
-                        <span class="mode-icon">🌙</span>
-                        <span>الوضع الداكن</span>
-                    </button>
+                <p class="stage-label">اختر مرحلتك الدراسية في أور:</p>
+                <div class="stage-options">
+                    <button class="stage-btn" onclick="selectStage('elementary')">الابتدائية</button>
+                    <button class="stage-btn" onclick="selectStage('middle')">المتوسطة</button>
+                    <button class="stage-btn" onclick="selectStage('high')">الإعدادية</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- لوحة التحكم الرئيسية (Dashboard) -->
-    <!-- قائمة الهامبرغر المنبثقة -->
-    <div id="hamburgerMenu" class="hamburger-menu hidden">
-        <ul class="hamburger-list">
-            <li><a href="#" onclick="openAccountModal(); return false;">🔒 الحساب</a></li>
-            <li><a href="#" onclick="openAboutModal(); return false;">ℹ️ لمحة عن المنصة</a></li>
-        </ul>
-    </div>
-
-    <!-- نموذج تعديل الحساب -->
-    <div id="accountModal" class="modal hidden">
-        <div class="modal-content">
-            <h2>تعديل الحساب</h2>
-            <div class="form-group">
-                <label>الاسم:</label>
-                <input type="text" id="accName" class="selector-input">
-            </div>
-            <div class="form-group">
-                <label>المرحلة:</label>
-                <select id="accStage" class="selector-input" onchange="accUpdateClassOptions()">
-                    <option value="">-- اختر المرحلة --</option>
-                    <option value="elementary">ابتدائية</option>
-                    <option value="middle">متوسطة</option>
-                    <option value="high">اعدادية</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>الصف:</label>
-                <select id="accClass" class="selector-input">
-                    <option value="">-- اختر الصف --</option>
-                </select>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-add-task" onclick="saveAccountChanges()">حفظ</button>
-                <button class="btn btn-clear-note" onclick="closeAccountModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- لمحة عن المنصة -->
-    <div id="aboutModal" class="modal hidden">
-        <div class="modal-content">
-            <h2>لمحة عن منصة أبواب</h2>
-            <p>منصة أبواب التعليمية هي مبادرة غير ربحية صُممت لتسهيل تجربة التعلم لدى الطلاب العراقيين من خلال تنظيم محتوى تعليمي مبسط ومجاني. الهدف منها هو توفير مكان موثوق يبحث فيه الطالب عن دروس فيديو حسب المادة، الأستاذ، والمرحلة الدراسية، بالإضافة إلى أدوات مساعدة مثل تدوين الملاحظات وإدارة المهام.</p>
-            <p>أسسها مطور طالب يُدعى مرتضى أيمن، والذي جمع بين حاجة الطالب في تنظيم الدراسة وبين خبرته البرمجية لإطلاق هذا الموقع. الفكرة نشأت من رغبته في تقديم مساعدة بسيطة للزملاء، وتقديم أداة يمكنها أن ترتب عملهم الدراسي وتسهّل عليهم إيجاد المحتوى التعليمي المناسب دون أي تكلفة.</p>
-            <p>المنصة مجانية بالكامل، وتعمل دائماً على تحسين نفسها لتكون أكثر فائدة وقرباً من احتياجات الطلاب. نأمل أن تكون خطوة صغيرة نحو مستقبل تعليمي أفضل للجميع.</p>
-            <div class="modal-actions">
-                <button class="btn btn-add-task" onclick="closeAboutModal()">رجوع</button>
-            </div>
-        </div>
-    </div>    <div id="dashboard" class="dashboard hidden">
-        <!-- شريط التنقل العلوي -->
-        <nav class="navbar">
-            <div class="container nav-content">
-                <div class="logo-section">
-                    <h1 class="logo">🎓 أبواب</h1>
+    <div id="mainContent" class="main-content hidden">
+        <header class="header">
+            <div class="container header-container">
+                <div class="user-info">
+                    <div class="user-details">
+                        <span id="userNameDisplay" class="user-name">..</span>
+                        <span id="userStageDisplay" class="user-stage-badge">..</span>
+                    </div>
                 </div>
-                <!-- زر القائمة النصي -->
-                <div class="menu-trigger" onclick="toggleHamburgerMenu()" title="معلومات عن الموقع">
-                    منصة أبواب التعليمية ▼
-                </div>
-                <div class="nav-right">
-                    <span id="welcomeMsg" class="welcome-msg" onclick="editProfile()" style="cursor:pointer;">أهلاً بك</span>
-                    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
-                        <span id="themeIcon">🌙</span>
-                    </button>
+                <div class="header-actions">
+                    <button onclick="toggleDarkMode()" id="themeToggle" class="btn btn-theme-toggle">🌓</button>
                 </div>
             </div>
-        </nav>
+        </header>
 
-        <!-- محتوى لوحة التحكم -->
-        <main class="main-content">
-            <div class="container">
-                <!-- قسم الترحيب -->
-                <section class="welcome-card">
-                    <div class="welcome-content">
-                        <h2 id="welcomeTitle">أهلاً وسهلاً</h2>
-                        <p>اختر المادة والأستاذ وابدأ رحلتك التعليمية</p>
-                    </div>
-                </section>
+        <main class="container">
+            <section class="card">
+                <h3>🔍 محرك بحث أور الذكي</h3>
+                <div id="subjectsList" style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;"></div>
+                <select id="teacherSelect" class="search-select" style="width: 100%; padding: 10px; margin-bottom: 10px;"></select>
+                <input type="text" id="topicSearch" class="search-input" placeholder="اكتب الموضوع الدراسي..." style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                <button onclick="searchInYoutube()" class="btn-search" style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer;">بحث فيديو 🔍</button>
+            </section>
 
-                <!-- قسم اختيار المادة والأستاذ -->
-                <section class="selector-section">
-                    <div class="selector-grid">
-                        <!-- اختيار المادة -->
-                        <div class="selector-card">
-                            <label for="subjectSelect" class="selector-label">📚 اختر المادة:</label>
-                            <select id="subjectSelect" class="selector-input" onchange="updateTeachers()">
-                                <option value="">-- اختر مادة --</option>
-                            </select>
-                        </div>
-
-                        <!-- اختيار الأستاذ -->
-                        <div class="selector-card">
-                            <label for="teacherSelect" class="selector-label">👨‍🏫 اختر الأستاذ:</label>
-                            <select id="teacherSelect" class="selector-input">
-                                <option value="">-- اختر أستاذ --</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- قسم البحث الذكي -->
-                <section class="search-section">
-                    <div class="search-card">
-                        <div class="search-container">
-                            <input 
-                                type="text" 
-                                id="searchInput" 
-                                class="search-input" 
-                                placeholder="🔍 ابحث عن موضوع أو درس..."
-                                onkeyup="performSearch()"
-                            >
-                            <button onclick="performSearch()" class="search-btn">بحث</button>
-                        </div>
-                        <div id="searchResults" class="search-results hidden">
-                            <!-- النتائج ستظهر هنا -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- قسم الملاحظات الذكية -->
-                <section class="notes-section">
-                    <h2 class="section-title">📝 ملاحظات اليوم الذكية</h2>
-                    <div class="notes-grid">
-                        <div class="notes-input-container">
-                            <textarea 
-                                id="smartNotes" 
-                                class="smart-notes-textarea" 
-                                placeholder="اكتب ملاحظاتك... (استخدم كلمات مثل: مهم، امتحان، مراجعة، تم الحل)"
-                                onkeyup="analyzeNote()"
-                            ></textarea>
-                            <div class="notes-buttons">
-                                <button class="btn btn-add-note" onclick="addNote()">➕ إضافة ملاحظة</button>
-                                <button class="btn btn-clear-note" onclick="clearNoteInput()">🗑️ مسح</button>
-                            </div>
-                        </div>
-
-                        <div class="notes-list-container">
-                            <h3>قائمة الملاحظات</h3>
-                            <div id="notesList" class="notes-list">
-                                <!-- الملاحظات ستظهر هنا -->
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- قسم إحصائيات المذاكرة -->
-                <section class="stats-section">
-                    <h2 class="section-title">📊 إحصائياتك الدراسية</h2>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">📖</div>
-                            <p class="stat-label">الملاحظات المضافة</p>
-                            <p id="totalNotes" class="stat-number">0</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">⚠️</div>
-                            <p class="stat-label">ملاحظات مهمة</p>
-                            <p id="importantNotes" class="stat-number">0</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">✅</div>
-                            <p class="stat-label">المهام المكتملة</p>
-                            <p id="completedTasks" class="stat-number">0</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🎯</div>
-                            <p class="stat-label">ساعات المذاكرة</p>
-                            <p id="studyHours" class="stat-number">0</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- قسم إدارة المهام -->
-                <section class="tasks-section">
-                    <h2 class="section-title">📋 إدارة المهام الدراسية</h2>
-                    <div class="tasks-container">
-                        <!-- نموذج إضافة مهمة جديدة -->
-                        <div class="task-form-card">
-                            <h3>➕ إضافة مهمة جديدة</h3>
-                            <form id="taskForm" class="task-form">
-                                <div class="form-group">
-                                    <label for="taskTitle">عنوان المهمة:</label>
-                                    <input type="text" id="taskTitle" placeholder="مثال: مراجعة الرياضيات" required>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="taskPriority">الأهمية:</label>
-                                        <select id="taskPriority">
-                                            <option value="normal">عادية</option>
-                                            <option value="high">قصوى</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="taskTime">وقت التذكير:</label>
-                                        <input type="time" id="taskTime">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>تنسيق الوقت:</label>
-                                    <div class="time-format-options">
-                                        <label class="radio-label">
-                                            <input type="radio" name="timeFormat" value="24" checked> 24 ساعة
-                                        </label>
-                                        <label class="radio-label">
-                                            <input type="radio" name="timeFormat" value="12"> 12 ساعة
-                                        </label>
-                                    </div>
-                                    <span id="timeFormatMessage" class="time-format-msg" style="margin-top:8px; display:block; font-size:13px; color:#555">
-                                        سيتم عرض المهام بتنسيق 24 ساعة
-                                    </span>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-add-task">➕ إضافة المهمة</button>
-                            </form>
-                        </div>
-
-                        <!-- قائمة المهام -->
-                        <div class="tasks-list-card">
-                            <h3>📝 قائمة المهام</h3>
-                            <div id="tasksList" class="tasks-list">
-                                <!-- المهام ستظهر هنا -->
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            <section class="card">
+                <h3>📝 مهام منصة أور اليومية</h3>
+                <div id="tasksList"></div>
+            </section>
         </main>
 
-        <!-- التذييل -->
         <footer class="footer">
-            <div class="container footer-content">
-                <div class="footer-section">
-                    <h4>👨‍💻 تم بناء هذا الموقع بواسطة مطور مرتضى ايمن</h4>
-                    <p>نظام متقدم مختص بفهم احتياجات الطالب العراقي وتنظيم دراسته بذكاء</p>
-                </div>
-                <div class="footer-section">
-                    <p>&copy; 2026 منصة أبواب التعليمية - جميع الحقوق محفوظة</p>
-                </div>
-            </div>
+            <p>تم بناء "منصة أور" بواسطة المطور مرتضى أيمن &copy; 2026</p>
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
+</html>
